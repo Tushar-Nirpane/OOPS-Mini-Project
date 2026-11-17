@@ -1,0 +1,11 @@
+MCQ|1|Which C++ keyword is used to prevent a class from being inherited?|static|final|const|virtual|B|5
+MCQ|2|Which feature of OOP is demonstrated by having multiple functions with the same name but different parameters?|Polymorphism|Encapsulation|Abstraction|Inheritance|A|5
+MCQ|3|What is the primary purpose of a virtual destructor in a base class?|Speed up execution|Prevent memory leaks during polymorphic deletion|Make the class abstract|Prevent object copying|B|5
+MCQ|4|Which of the following operators cannot be overloaded in C++?|Assignment (=)|Subscript ([])|Scope Resolution (::)|Function Call (())|C|5
+MCQ|5|What defines a pure virtual function in a C++ class?|A function declared with the pure keyword|A virtual function equated to 0 (= 0)|A function defined inside a template|A static member function|B|5
+MCQ|6|Which access specifier allows derived classes to access members while hiding them from external code?|private|protected|public|internal|B|5
+MCQ|7|What is the conventional return type of an overloaded assignment operator (=) in C++?|void|bool|Reference to *this|A new copy of the object|C|5
+TF|8|A friend function has access to all private and protected members of the class in which it is declared.|True|5
+TF|9|Constructors can be declared virtual in C++.|False|5
+TF|10|In C++, an abstract class can be directly instantiated using the new operator.|False|5
+

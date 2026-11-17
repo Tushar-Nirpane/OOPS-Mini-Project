@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Quiz System — C++ OOP Mini Project</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- ===== TOP NAV BAR ===== -->
+    <nav class="navbar">
+        <div class="nav-brand">🎓 Online Quiz System</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-screen="login">Home</button>
+            <button class="tab-btn" data-screen="leaderboard">Leaderboard</button>
+            <button class="tab-btn" data-screen="admin">Admin Panel</button>
+        </div>
+        <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">🌙</div>
+    </nav>
+
+    <!-- ===== 1. LOGIN / ENTRY SCREEN ===== -->
+    <section id="screen-login" class="screen active">
+        <div class="card login-card">
+            <div class="card-icon">📝</div>
+            <h2>Welcome to the Online Quiz</h2>
+            <p class="subtitle">Enter your details to begin the quiz</p>
+            <form id="loginForm" autocomplete="off">
+                <div class="input-group">
+                    <label for="rollNo">Roll Number</label>
+                    <input type="text" id="rollNo" placeholder="e.g. 21BCSE101" required />
+                </div>
+                <div class="input-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" placeholder="e.g. Aarav Sharma" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Start Quiz →</button>
+            </form>
+            <p class="login-footer">Powered by C++ OOP Engine</p>
+        </div>
+    </section>
+
+    <!-- ===== 2. QUIZ SCREEN ===== -->
+    <section id="screen-quiz" class="screen">
+        <div class="quiz-header">
+            <div class="quiz-info">
+                <span id="quizStudentLabel" class="badge badge-info">Student</span>
+                <span class="badge badge-outline" id="questionCounter">Q 1 / 10</span>
+            </div>
+            <div class="timer-container">
+                <div class="timer" id="timer">
+                    <span id="timerIcon">⏱️</span>
+                    <span id="timerDisplay">10:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <!-- Question Navigator Pills -->
+        <div class="question-navigator" id="questionNav"></div>
+
+        <!-- Question Card -->
+        <div class="card question-card">
+            <div class="question-type-badge" id="questionTypeBadge">MCQ</div>
+            <h3 class="question-text" id="questionText">Loading question...</h3>
+            <div class="options-container" id="optionsContainer"></div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="quiz-nav-buttons">
+            <button class="btn btn-secondary" id="btnPrev" disabled>← Previous</button>
+            <button class="btn btn-secondary" id="btnSkip">Skip</button>
+            <button class="btn btn-primary" id="btnNext">Next →</button>
+            <button class="btn btn-success hidden" id="btnSubmit">Submit Quiz ✓</button>
+        </div>
+    </section>
+
+    <!-- ===== 3. RESULTS / REVIEW SCREEN ===== -->
+    <section id="screen-result" class="screen">
+        <div class="card result-card">
+            <div id="resultBadge" class="result-badge passed">PASSED</div>
+            <h2 id="resultTitle">Quiz Results</h2>
+            <div class="score-display">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-number" id="scoreNumber">0</span>
+                    <span class="score-label">Score</span>
+                </div>
+            </div>
+            <div class="result-stats" id="resultStats"></div>
+            <button class="btn btn-primary" id="btnViewReview">📋 View Answer Review</button>
+            <button class="btn btn-secondary" id="btnBackHome">🏠 Back to Home</button>
+        </div>
+
+        <!-- Detailed Answer Review -->
+        <div class="card review-card hidden" id="reviewSection">
+            <h3>📋 Detailed Answer Review</h3>
+            <div id="reviewList"></div>
+        </div>
+    </section>
+
+    <!-- ===== 4. LEADERBOARD SCREEN ===== -->
+    <section id="screen-leaderboard" class="screen">
+        <div class="card">
+            <h2>🏆 Student Leaderboard</h2>
+            <p class="subtitle">Sorted by highest score</p>
+            <button class="btn btn-secondary btn-sm" id="btnRefreshLB">🔄 Refresh</button>
+            <div class="table-wrapper">
+                <table class="leaderboard-table" id="leaderboardTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody"></tbody>
+                </table>
+            </div>
+            <p class="empty-state hidden" id="lbEmpty">No quiz attempts recorded yet.</p>
+        </div>
+    </section>
+
+    <!-- ===== 5. ADMIN PANEL SCREEN ===== -->
+    <section id="screen-admin" class="screen">
+        <div class="card">
+            <h2>⚙️ Admin Panel — Add New Question</h2>
+            <p class="subtitle">Questions are saved directly to data/questions.txt</p>
+            <form id="adminForm" autocomplete="off">
+                <div class="input-group">
+                    <label for="adminQType">Question Type</label>
+                    <select id="adminQType">
+                        <option value="MCQ">Multiple Choice (MCQ)</option>
+                        <option value="TF">True / False</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="adminQText">Question Text</label>
+                    <textarea id="adminQText" rows="3" placeholder="Enter the question..." required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="adminQMarks">Marks</label>
+                    <input type="number" id="adminQMarks" value="5" min="1" max="20" />
+                </div>
+
+                <!-- MCQ-specific Options -->
+                <div id="mcqOptionsGroup">
+                    <div class="input-group">
+                        <label>Option A</label>
+                        <input type="text" id="adminOptA" placeholder="Option A" />
+                    </div>
+                    <div class="input-group">
+                        <label>Option B</label>
+                        <input type="text" id="adminOptB" placeholder="Option B" />
+                    </div>
+                    <div class="input-group">
+                        <label>Option C</label>
+                        <input type="text" id="adminOptC" placeholder="Option C" />
+                    </div>
+                    <div class="input-group">
+                        <label>Option D</label>
+                        <input type="text" id="adminOptD" placeholder="Option D" />
+                    </div>
+                    <div class="input-group">
+                        <label for="adminCorrectOpt">Correct Option</label>
+                        <select id="adminCorrectOpt">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- TF-specific Options -->
+                <div id="tfOptionsGroup" class="hidden">
+                    <div class="input-group">
+                        <label for="adminCorrectTF">Correct Answer</label>
+                        <select id="adminCorrectTF">
+                            <option value="True">True</option>
+                            <option value="False">False</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">➕ Add Question</button>
+            </form>
+            <div class="admin-message hidden" id="adminMessage"></div>
+        </div>
+    </section>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
