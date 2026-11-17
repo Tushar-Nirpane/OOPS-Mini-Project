@@ -1,8 +1,16 @@
+# Render Blueprint — one-click deploy of the Online Quiz System.
+# The server binds to 0.0.0.0 and reads the PORT env var that Render injects
+# (default 10000), so no port override is needed here.
 services:
   - type: web
     name: oops-online-quiz-system
     runtime: docker
     plan: free
-    region: oregon
-    dockerfilePath: Dockerfile
+    # Singapore is the closest region for users in India.
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/stats
     autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000

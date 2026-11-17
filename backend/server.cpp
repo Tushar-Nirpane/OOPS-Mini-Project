@@ -5,6 +5,10 @@
 #include <memory>
 #include <mutex>
 #include <regex>
+#include <cstdlib>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 /**
  * @file server.cpp

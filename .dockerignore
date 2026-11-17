@@ -1,0 +1,21 @@
+# Keep the build context small and avoid shipping host binaries.
+.git
+.gitignore
+.github
+README.md
+LICENSE
+DEPLOY.md
+
+# Prebuilt macOS/Linux binaries for local runs
+quiz_server
+quiz_cli
+*.o
+*.out
+*.exe
+
+# Local artefacts
+*.log
+.DS_Store
+Thumbs.db
+.vscode
+.idea

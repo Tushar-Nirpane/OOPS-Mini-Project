@@ -6,6 +6,8 @@ A complete, production-clean **Online Quiz System** built for Second Year B.Tech
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
+> 🚀 **Want a public web URL?** See **[DEPLOY.md](DEPLOY.md)** for one-click Render / Railway deployment (Docker + `$PORT` ready).
+
 ---
 
 ## ✨ Features
