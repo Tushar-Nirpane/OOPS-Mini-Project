@@ -86,7 +86,16 @@ static std::vector<std::string> extractOptionsArray(const std::string& json) {
 
 int main(int argc, char* argv[]) {
     int port = 8080;
-    if (argc > 1) {
+
+    // Check PORT environment variable (standard on Render, Railway, Cloud Run, Heroku)
+    const char* envPort = std::getenv("PORT");
+    if (envPort != nullptr && envPort[0] != '\0') {
+        try {
+            port = std::stoi(envPort);
+        } catch (...) {
+            port = 8080;
+        }
+    } else if (argc > 1) {
         try {
             port = std::stoi(argv[1]);
         } catch (...) {
@@ -226,6 +235,40 @@ int main(int argc, char* argv[]) {
                          + ",\"totalQuizzesAttempted\":" + std::to_string(Student::getTotalQuizzesAttempted())
                          + ",\"currentQuestionsInBank\":" + std::to_string(manager->getQuestionCount()) + "}";
         res.set_content(json, "application/json");
+    });
+
+    // Static file helper for rock-solid cloud container serving
+    auto serveStatic = [](const std::string& path, const std::string& mime, httplib::Response& res) {
+        std::ifstream file(path);
+        if (!file.is_open()) file.open("../" + path);
+        if (file.is_open()) {
+            std::stringstream buffer;
+            buffer << file.rdbuf();
+            res.set_content(buffer.str(), mime);
+            return true;
+        }
+        return false;
+    };
+
+    svr.Get("/", [=](const httplib::Request&, httplib::Response& res) {
+        if (!serveStatic("frontend/index.html", "text/html", res)) {
+            res.status = 404;
+            res.set_content("frontend/index.html not found", "text/plain");
+        }
+    });
+
+    svr.Get("/style.css", [=](const httplib::Request&, httplib::Response& res) {
+        if (!serveStatic("frontend/style.css", "text/css", res)) {
+            res.status = 404;
+            res.set_content("style.css not found", "text/plain");
+        }
+    });
+
+    svr.Get("/app.js", [=](const httplib::Request&, httplib::Response& res) {
+        if (!serveStatic("frontend/app.js", "application/javascript", res)) {
+            res.status = 404;
+            res.set_content("app.js not found", "text/plain");
+        }
     });
 
     // Static files mount point: frontend/

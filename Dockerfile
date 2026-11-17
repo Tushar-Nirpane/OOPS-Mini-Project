@@ -18,5 +18,5 @@ COPY --from=builder /app/frontend/ frontend/
 COPY --from=builder /app/data/ data/
 
 EXPOSE 8080
-CMD ["./quiz_server", "8080"]
+CMD ["./quiz_server"]
 
