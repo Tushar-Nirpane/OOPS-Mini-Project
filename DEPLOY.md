@@ -1,5 +1,14 @@
 # 🚀 Deployment Guide — Getting a Live Web URL
 
+## 🟢 Live now
+
+**https://oops-online-quiz-system.onrender.com**
+
+Deployed on Render (free plan, Singapore region) from `main` via the `oops-quiz-system`
+Blueprint. Verified working: UI, `/api/questions`, `/api/submit`, `/api/leaderboard`, `/api/stats`.
+
+> First visit after ~15 minutes of inactivity takes up to 50 s while the free instance wakes up.
+
 The app is a single container: a C++17 server that serves both the REST API and the
 frontend. Once deployed you get a public HTTPS URL that serves the whole quiz system.
 
@@ -92,6 +101,7 @@ Then open `YOUR_URL` in a browser and run through: login → quiz → result →
 |---------|-------|-----|
 | Deploy fails: *"no open ports detected"* | App not bound to `0.0.0.0:$PORT` | Already handled — confirm you did not hardcode a port in the dashboard `PORT` var |
 | Build fails at `g++` | Compile error | Reproduce locally: `g++ -std=c++17 -O2 -pthread backend/Question.cpp backend/QuizManager.cpp backend/server.cpp -o quiz_server` |
+| Deploy fails: *"`GLIBCXX_3.4.32' not found"* | `gcc:13` links against a newer libstdc++ than `debian:bookworm-slim` ships | Already fixed — the build uses `-static-libstdc++ -static-libgcc` so the binary is self-contained |
 | `502` right after deploy | Container still starting | Wait 30–60 s, check the **Logs** tab |
 | First visit after idle is slow (~50 s) | Free plan sleeps | Expected on Render free tier |
 | Leaderboard resets after redeploy | Container filesystem is ephemeral — `data/results.txt` lives inside the container | Attach a persistent disk, or accept it for a lab project |
