@@ -3,201 +3,732 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Online Quiz System — C++ OOP Mini Project</title>
+    <title>Online Quiz System — C++ OOP Engine</title>
+    <!-- Modern Tech Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- ===== TOP NAV BAR ===== -->
+    <!-- Background Ambient Glow Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- ===== TOP NAVIGATION BAR ===== -->
     <nav class="navbar">
-        <div class="nav-brand">🎓 Online Quiz System</div>
-        <div class="nav-tabs">
-            <button class="tab-btn active" data-screen="login">Home</button>
-            <button class="tab-btn" data-screen="leaderboard">Leaderboard</button>
-            <button class="tab-btn" data-screen="admin">Admin Panel</button>
+        <div class="nav-brand">
+            <div class="brand-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">QUIZSPARK</span>
+                <span class="brand-subtitle">C++17 OOP ENGINE</span>
+            </div>
         </div>
-        <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">🌙</div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-screen="login">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Exam Portal</span>
+            </button>
+            <button class="tab-btn" data-screen="leaderboard">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+                <span>Leaderboard</span>
+            </button>
+            <button class="tab-btn" data-screen="oop-inspector">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>OOP Architecture</span>
+                <span class="tab-badge">Viva</span>
+            </button>
+            <button class="tab-btn" data-screen="admin">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Admin</span>
+            </button>
+        </div>
+
+        <div class="nav-actions">
+            <button class="icon-btn" id="soundToggle" title="Toggle Sound Effects">
+                <span id="soundIcon">🔊</span>
+            </button>
+            <button class="icon-btn" id="themeToggle" title="Toggle Dark/Light Mode">
+                <span id="themeIcon">🌙</span>
+            </button>
+            <div class="system-status-chip" id="systemStatusChip" title="C++ REST API Status">
+                <span class="status-dot"></span>
+                <span class="status-label">C++ Engine Live</span>
+            </div>
+        </div>
     </nav>
 
-    <!-- ===== 1. LOGIN / ENTRY SCREEN ===== -->
-    <section id="screen-login" class="screen active">
-        <div class="card login-card">
-            <div class="card-icon">📝</div>
-            <h2>Welcome to the Online Quiz</h2>
-            <p class="subtitle">Enter your details to begin the quiz</p>
-            <form id="loginForm" autocomplete="off">
-                <div class="input-group">
-                    <label for="rollNo">Roll Number</label>
-                    <input type="text" id="rollNo" placeholder="e.g. 21BCSE101" required />
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- ================================================================ -->
+        <!-- 1. LOGIN / ENTRY SCREEN -->
+        <!-- ================================================================ -->
+        <section id="screen-login" class="screen active">
+            <div class="hero-section">
+                <div class="hero-badge">
+                    <span class="pulse-icon">⚡</span> Second Year B.Tech OOP Lab Evaluation Platform
                 </div>
-                <div class="input-group">
-                    <label for="studentName">Full Name</label>
-                    <input type="text" id="studentName" placeholder="e.g. Aarav Sharma" required />
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Start Quiz →</button>
-            </form>
-            <p class="login-footer">Powered by C++ OOP Engine</p>
-        </div>
-    </section>
+                <h1 class="hero-title">
+                    Master Computer Science with <span class="gradient-text">Real-Time Evaluation</span>
+                </h1>
+                <p class="hero-description">
+                    Powered by an industrial-grade C++17 polymorphic engine. Evaluated instantaneously via custom stream operators, memory-safe smart pointers, and high-performance STL algorithms.
+                </p>
 
-    <!-- ===== 2. QUIZ SCREEN ===== -->
-    <section id="screen-quiz" class="screen">
-        <div class="quiz-header">
-            <div class="quiz-info">
-                <span id="quizStudentLabel" class="badge badge-info">Student</span>
-                <span class="badge badge-outline" id="questionCounter">Q 1 / 10</span>
-            </div>
-            <div class="timer-container">
-                <div class="timer" id="timer">
-                    <span id="timerIcon">⏱️</span>
-                    <span id="timerDisplay">10:00</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-bar-track">
-            <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
-        </div>
-
-        <!-- Question Navigator Pills -->
-        <div class="question-navigator" id="questionNav"></div>
-
-        <!-- Question Card -->
-        <div class="card question-card">
-            <div class="question-type-badge" id="questionTypeBadge">MCQ</div>
-            <h3 class="question-text" id="questionText">Loading question...</h3>
-            <div class="options-container" id="optionsContainer"></div>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <div class="quiz-nav-buttons">
-            <button class="btn btn-secondary" id="btnPrev" disabled>← Previous</button>
-            <button class="btn btn-secondary" id="btnSkip">Skip</button>
-            <button class="btn btn-primary" id="btnNext">Next →</button>
-            <button class="btn btn-success hidden" id="btnSubmit">Submit Quiz ✓</button>
-        </div>
-    </section>
-
-    <!-- ===== 3. RESULTS / REVIEW SCREEN ===== -->
-    <section id="screen-result" class="screen">
-        <div class="card result-card">
-            <div id="resultBadge" class="result-badge passed">PASSED</div>
-            <h2 id="resultTitle">Quiz Results</h2>
-            <div class="score-display">
-                <div class="score-circle" id="scoreCircle">
-                    <span class="score-number" id="scoreNumber">0</span>
-                    <span class="score-label">Score</span>
+                <!-- Live Quick Stats Banner -->
+                <div class="live-metrics-bar" id="liveMetricsBar">
+                    <div class="metric-pill">
+                        <span class="metric-icon">📚</span>
+                        <div class="metric-content">
+                            <span class="metric-val" id="metricQBank">10</span>
+                            <span class="metric-name">Questions in Bank</span>
+                        </div>
+                    </div>
+                    <div class="metric-pill">
+                        <span class="metric-icon">👥</span>
+                        <div class="metric-content">
+                            <span class="metric-val" id="metricAttempts">0</span>
+                            <span class="metric-name">Attempts Recorded</span>
+                        </div>
+                    </div>
+                    <div class="metric-pill">
+                        <span class="metric-icon">⚙️</span>
+                        <div class="metric-content">
+                            <span class="metric-val">C++17</span>
+                            <span class="metric-name">Polymorphic Core</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="result-stats" id="resultStats"></div>
-            <button class="btn btn-primary" id="btnViewReview">📋 View Answer Review</button>
-            <button class="btn btn-secondary" id="btnBackHome">🏠 Back to Home</button>
-        </div>
 
-        <!-- Detailed Answer Review -->
-        <div class="card review-card hidden" id="reviewSection">
-            <h3>📋 Detailed Answer Review</h3>
-            <div id="reviewList"></div>
-        </div>
-    </section>
+            <!-- Login Card -->
+            <div class="card card-glow login-card">
+                <div class="card-header-clean">
+                    <div class="card-icon-bubble">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div>
+                        <h2>Student Examination Portal</h2>
+                        <p class="subtitle">Enter your official credentials to launch your test session</p>
+                    </div>
+                </div>
 
-    <!-- ===== 4. LEADERBOARD SCREEN ===== -->
-    <section id="screen-leaderboard" class="screen">
-        <div class="card">
-            <h2>🏆 Student Leaderboard</h2>
-            <p class="subtitle">Sorted by highest score</p>
-            <button class="btn btn-secondary btn-sm" id="btnRefreshLB">🔄 Refresh</button>
-            <div class="table-wrapper">
-                <table class="leaderboard-table" id="leaderboardTable">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Roll No</th>
-                            <th>Name</th>
-                            <th>Score</th>
-                            <th>Percentage</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboardBody"></tbody>
-                </table>
+                <form id="loginForm" autocomplete="off">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="rollNo">
+                                <span>University Roll Number</span>
+                                <span class="required-star">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="field-icon">🆔</span>
+                                <input type="text" id="rollNo" placeholder="e.g. 21BCSE101" required />
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="studentName">
+                                <span>Student Full Name</span>
+                                <span class="required-star">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="field-icon">👤</span>
+                                <input type="text" id="studentName" placeholder="e.g. Aarav Sharma" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exam Guidelines Banner -->
+                    <div class="guidelines-accordion">
+                        <div class="guideline-item">
+                            <span class="guide-icon">⏱️</span>
+                            <span><strong>10-Minute Timer:</strong> Countdown begins the moment you press start. Auto-submission on expiry.</span>
+                        </div>
+                        <div class="guideline-item">
+                            <span class="guide-icon">🎯</span>
+                            <span><strong>Scoring & Passing:</strong> 5 marks per correct answer. Minimum 40% required to clear.</span>
+                        </div>
+                        <div class="guideline-item">
+                            <span class="guide-icon">🚩</span>
+                            <span><strong>Flag & Review:</strong> Mark challenging questions to easily navigate back before final submit.</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block glow-button" id="btnStartQuiz">
+                        <span>Begin Examination</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </form>
             </div>
-            <p class="empty-state hidden" id="lbEmpty">No quiz attempts recorded yet.</p>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- 2. INTERACTIVE QUIZ SCREEN -->
+        <!-- ================================================================ -->
+        <section id="screen-quiz" class="screen">
+            <!-- Exam Header Bar -->
+            <div class="exam-top-bar">
+                <div class="candidate-badge">
+                    <div class="candidate-avatar" id="candidateAvatar">AS</div>
+                    <div class="candidate-details">
+                        <span class="candidate-name" id="quizStudentName">Candidate</span>
+                        <span class="candidate-roll" id="quizStudentRoll">21BCSE000</span>
+                    </div>
+                </div>
+
+                <!-- Timer Gauge -->
+                <div class="timer-card" id="timerCard">
+                    <div class="timer-icon-pulse">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div class="timer-text-box">
+                        <span class="timer-tag">TIME REMAINING</span>
+                        <span class="timer-clock" id="timerDisplay">10:00</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger-soft btn-sm" id="btnEarlyFinish">
+                    Finish Exam
+                </button>
+            </div>
+
+            <!-- Quiz Layout: Main Content + Navigator Sidebar -->
+            <div class="quiz-grid-layout">
+
+                <!-- Left Column: Current Question & Options -->
+                <div class="quiz-main-area">
+                    <!-- Progress Strip -->
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span id="questionCounter">Question 1 of 10</span>
+                            <span id="progressPercentage">10% Complete</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="progressBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="card question-card-v2" id="currentQuestionCard">
+                        <div class="question-meta-strip">
+                            <span class="meta-badge type-badge" id="questionTypeBadge">MCQ</span>
+                            <span class="meta-badge marks-badge" id="questionMarksBadge">+5 Marks</span>
+                            <button class="flag-btn" id="btnFlag" title="Flag this question to review later">
+                                <span class="flag-icon">🚩</span>
+                                <span class="flag-label" id="flagBtnText">Flag Question</span>
+                            </button>
+                        </div>
+
+                        <div class="question-body">
+                            <h2 class="question-heading" id="questionText">Loading question prompt...</h2>
+                        </div>
+
+                        <!-- Options Container -->
+                        <div class="options-grid-v2" id="optionsContainer"></div>
+
+                        <!-- Question Bottom Action Bar -->
+                        <div class="quiz-controls-bar">
+                            <div class="controls-left">
+                                <button class="btn btn-ghost" id="btnClearOption">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    <span>Clear Choice</span>
+                                </button>
+                            </div>
+                            <div class="controls-right">
+                                <button class="btn btn-secondary" id="btnPrev" disabled>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                                    <span>Previous</span>
+                                </button>
+                                <button class="btn btn-primary" id="btnNext">
+                                    <span>Next</span>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                                </button>
+                                <button class="btn btn-success glow-button hidden" id="btnSubmit">
+                                    <span>Submit Final Answers</span>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard navigation hint -->
+                    <div class="keyboard-hints">
+                        <span>⌨️ Shortcuts: <kbd>A</kbd>-<kbd>D</kbd> Select Option • <kbd>→</kbd> / <kbd>N</kbd> Next • <kbd>←</kbd> / <kbd>P</kbd> Prev • <kbd>F</kbd> Flag</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Question Navigator Sidebar -->
+                <aside class="quiz-sidebar">
+                    <div class="card sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Question Palette</h3>
+                            <span class="palette-counter" id="paletteCounter">0/10 Answered</span>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="palette-legend">
+                            <div class="legend-chip"><span class="legend-dot answered"></span>Answered</div>
+                            <div class="legend-chip"><span class="legend-dot flagged"></span>Flagged</div>
+                            <div class="legend-chip"><span class="legend-dot current"></span>Current</div>
+                            <div class="legend-chip"><span class="legend-dot unvisited"></span>Unvisited</div>
+                        </div>
+
+                        <!-- Pills Grid -->
+                        <div class="navigator-grid" id="questionNav"></div>
+
+                        <!-- Quick Summary Box -->
+                        <div class="palette-summary">
+                            <div class="summary-row">
+                                <span>Answered:</span>
+                                <strong id="sumAnswered">0</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Flagged:</span>
+                                <strong id="sumFlagged">0</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Remaining:</span>
+                                <strong id="sumRemaining">10</strong>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-success btn-block" id="btnPaletteSubmit">
+                            Submit Examination
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- 3. RESULTS & PERFORMANCE REVIEW SCREEN -->
+        <!-- ================================================================ -->
+        <section id="screen-result" class="screen">
+            <!-- Confetti Canvas for Passing Marks -->
+            <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+            <div class="result-hero-card card card-glow" id="printableCard">
+                <div class="result-header">
+                    <div class="result-badge-pill" id="resultBadge">PASSED</div>
+                    <h1 class="result-student-title" id="resultTitle">Performance Scorecard</h1>
+                    <p class="subtitle" id="resultSubtitle">Official C++ Evaluation Engine Certificate</p>
+                </div>
+
+                <!-- Main Metric Circular Gauge + Highlights -->
+                <div class="result-overview-grid">
+                    <div class="gauge-card">
+                        <div class="circular-progress">
+                            <svg class="progress-ring" width="180" height="180">
+                                <circle class="progress-ring-bg" stroke-width="12" cx="90" cy="90" r="74" />
+                                <circle class="progress-ring-fill" id="progressRingFill" stroke-width="12" cx="90" cy="90" r="74" />
+                            </svg>
+                            <div class="gauge-center">
+                                <span class="gauge-percentage" id="gaugePct">0%</span>
+                                <span class="gauge-grade" id="gaugeGrade">GRADE A</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-stats-matrix">
+                        <div class="stat-box primary">
+                            <div class="stat-icon-wrap">🎯</div>
+                            <div class="stat-content">
+                                <span class="stat-big" id="resScore">0 / 50</span>
+                                <span class="stat-desc">Final Score</span>
+                            </div>
+                        </div>
+                        <div class="stat-box success">
+                            <div class="stat-icon-wrap">✅</div>
+                            <div class="stat-content">
+                                <span class="stat-big" id="resCorrect">0</span>
+                                <span class="stat-desc">Correct Answers</span>
+                            </div>
+                        </div>
+                        <div class="stat-box danger">
+                            <div class="stat-icon-wrap">❌</div>
+                            <div class="stat-content">
+                                <span class="stat-big" id="resWrong">0</span>
+                                <span class="stat-desc">Mistakes / Skipped</span>
+                            </div>
+                        </div>
+                        <div class="stat-box info">
+                            <div class="stat-icon-wrap">⚡</div>
+                            <div class="stat-content">
+                                <span class="stat-big" id="resAccuracy">0%</span>
+                                <span class="stat-desc">Accuracy Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Bar -->
+                <div class="result-actions-strip">
+                    <button class="btn btn-primary" id="btnToggleReview">
+                        <span id="reviewToggleText">📋 Show Detailed Question Review</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btnPrintResult">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        <span>Print / Save Scorecard</span>
+                    </button>
+                    <button class="btn btn-ghost" id="btnGoHome">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                        <span>Retake Exam</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Answer Review Section -->
+            <div class="card review-card-v2 hidden" id="reviewSection">
+                <div class="review-header-bar">
+                    <h3>Detailed Question Analysis</h3>
+                    <div class="review-filter-tabs">
+                        <button class="filter-tab-btn active" data-filter="all">All (<span id="countAllRev">10</span>)</button>
+                        <button class="filter-tab-btn" data-filter="correct">✅ Correct (<span id="countCorrectRev">0</span>)</button>
+                        <button class="filter-tab-btn" data-filter="incorrect">❌ Mistakes (<span id="countIncorrectRev">0</span>)</button>
+                    </div>
+                </div>
+                <div class="review-items-list" id="reviewList"></div>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- 4. LEADERBOARD SCREEN -->
+        <!-- ================================================================ -->
+        <section id="screen-leaderboard" class="screen">
+            <div class="screen-header">
+                <div>
+                    <h1 class="page-title">Hall of Fame • Leaderboard</h1>
+                    <p class="subtitle">Ranked in real-time by the C++ `std::sort` descending algorithm</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btnRefreshLB">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    <span>Refresh Standings</span>
+                </button>
+            </div>
+
+            <!-- Podium for Top 3 Ranked Students -->
+            <div class="podium-wrapper" id="podiumWrapper">
+                <div class="podium-card rank-2" id="podium2">
+                    <div class="podium-badge">🥈 2nd Place</div>
+                    <div class="podium-avatar">2</div>
+                    <div class="podium-name" id="podium2Name">—</div>
+                    <div class="podium-score" id="podium2Score">—</div>
+                </div>
+                <div class="podium-card rank-1" id="podium1">
+                    <div class="podium-badge crown">👑 Champion</div>
+                    <div class="podium-avatar">1</div>
+                    <div class="podium-name" id="podium1Name">—</div>
+                    <div class="podium-score" id="podium1Score">—</div>
+                </div>
+                <div class="podium-card rank-3" id="podium3">
+                    <div class="podium-badge">🥉 3rd Place</div>
+                    <div class="podium-avatar">3</div>
+                    <div class="podium-name" id="podium3Name">—</div>
+                    <div class="podium-score" id="podium3Score">—</div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Table Card -->
+            <div class="card">
+                <div class="table-toolbar">
+                    <div class="search-input-wrap">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="lbSearchInput" placeholder="Filter by Name or Roll No..." />
+                    </div>
+                    <div class="table-meta-stat" id="lbMetaCount">Showing 0 records</div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="leaderboard-table-v2" id="leaderboardTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Candidate</th>
+                                <th>Roll Number</th>
+                                <th>Score</th>
+                                <th>Percentage</th>
+                                <th>Grade</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state hidden" id="lbEmpty">
+                    <div class="empty-icon">📭</div>
+                    <h3>No Examination Records Found</h3>
+                    <p>Be the first student to complete the quiz!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- 5. OOP ARCHITECTURE & VIVA INSPECTOR SCREEN (NEW!) -->
+        <!-- ================================================================ -->
+        <section id="screen-oop-inspector" class="screen">
+            <div class="screen-header">
+                <div>
+                    <h1 class="page-title">C++ OOP Architecture & Viva Inspector</h1>
+                    <p class="subtitle">Interactive mapping of syllabus concepts to C++ implementation classes</p>
+                </div>
+                <div class="viva-ready-badge">
+                    <span>🎓 100% Viva Ready</span>
+                </div>
+            </div>
+
+            <!-- Live Engine Telemetry Strip -->
+            <div class="card oop-telemetry-card">
+                <h3>Live C++ Engine Telemetry (from <code>/api/stats</code>)</h3>
+                <div class="telemetry-grid">
+                    <div class="telemetry-pill">
+                        <span class="tele-val" id="teleQuestions">10</span>
+                        <span class="tele-label">Question Instances Created (<code>static totalQuestionsCreated</code>)</span>
+                    </div>
+                    <div class="telemetry-pill">
+                        <span class="tele-val" id="teleQuizzes">0</span>
+                        <span class="tele-label">Quizzes Evaluated (<code>static totalQuizzesAttempted</code>)</span>
+                    </div>
+                    <div class="telemetry-pill">
+                        <span class="tele-val">C++17</span>
+                        <span class="tele-label">Language Standard & Compiler</span>
+                    </div>
+                    <div class="telemetry-pill">
+                        <span class="tele-val">Smart Ptr</span>
+                        <span class="tele-label"><code>std::unique_ptr&lt;Question&gt;</code></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Core Concept Cards Accordion -->
+            <div class="oop-concepts-grid">
+                <!-- Concept 1 -->
+                <div class="card concept-card">
+                    <div class="concept-header">
+                        <span class="concept-num">01</span>
+                        <h4>Classes, Encapsulation & Constructors</h4>
+                    </div>
+                    <p class="concept-desc">
+                        Demonstrated across <code>Question</code>, <code>MCQQuestion</code>, <code>TrueFalseQuestion</code>, and <code>Student</code> classes.
+                    </p>
+                    <ul class="concept-features">
+                        <li><strong>Default Constructor:</strong> Zero-state initialization.</li>
+                        <li><strong>Parameterized Constructor:</strong> Strict validation and <code>this-></code> pointer usage.</li>
+                        <li><strong>Copy Constructor:</strong> Explicit deep copying of options vectors and score records.</li>
+                        <li><strong>Virtual Destructor:</strong> <code>virtual ~Question()</code> prevents memory leaks during base pointer deletions.</li>
+                        <li><strong>Static Members:</strong> <code>totalQuestionsCreated</code> and <code>totalQuizzesAttempted</code>.</li>
+                        <li><strong>Friend Functions:</strong> <code>operator&lt;&lt;</code>, <code>operator&gt;&gt;</code>, and <code>printStudentSummary()</code>.</li>
+                    </ul>
+                </div>
+
+                <!-- Concept 2 -->
+                <div class="card concept-card">
+                    <div class="concept-header">
+                        <span class="concept-num">02</span>
+                        <h4>Inheritance & Smart Pointers</h4>
+                    </div>
+                    <p class="concept-desc">
+                        Clean polymorphic class hierarchy avoiding object slicing through smart pointers.
+                    </p>
+                    <div class="code-snippet-box">
+                        <code>class MCQQuestion : public Question { ... };</code>
+                        <code>class TrueFalseQuestion : public Question { ... };</code>
+                        <code>std::vector&lt;std::unique_ptr&lt;Question&gt;&gt; questions;</code>
+                    </div>
+                    <p class="concept-note">
+                        Stored via polymorphic base-class smart pointers, ensuring automated memory cleanup via RAII.
+                    </p>
+                </div>
+
+                <!-- Concept 3 -->
+                <div class="card concept-card">
+                    <div class="concept-header">
+                        <span class="concept-num">03</span>
+                        <h4>Runtime Polymorphism & Operator Overloading</h4>
+                    </div>
+                    <p class="concept-desc">
+                        Dynamic dispatch at runtime via pure virtual functions and natural syntax via operators.
+                    </p>
+                    <ul class="concept-features">
+                        <li><code>virtual bool evaluate(const string&amp;) const = 0;</code></li>
+                        <li><code>virtual string toJSON() const = 0;</code></li>
+                        <li><code>virtual string serialize() const = 0;</code></li>
+                        <li><code>Student operator+(int bonusMarks) const;</code> — Bonus marks combination.</li>
+                        <li><code>Student operator+(const Student&amp;) const;</code> — Multi-module test score merger.</li>
+                        <li><code>friend ostream&amp; operator&lt;&lt; / istream&amp; operator&gt;&gt;</code> — Serialization.</li>
+                    </ul>
+                </div>
+
+                <!-- Concept 4 -->
+                <div class="card concept-card">
+                    <div class="concept-header">
+                        <span class="concept-num">04</span>
+                        <h4>File Streams & Custom Exception Hierarchy</h4>
+                    </div>
+                    <p class="concept-desc">
+                        Robust I/O with custom standard-library-compliant exceptions.
+                    </p>
+                    <ul class="concept-features">
+                        <li><code>FileNotFoundException</code> — Thrown if <code>data/questions.txt</code> is inaccessible.</li>
+                        <li><code>InvalidQuestionFormatException</code> — Catches pipe-delimited syntax anomalies.</li>
+                        <li><code>EmptyQuizException</code> — Thrown if attempting to start test with zero questions.</li>
+                        <li>All exceptions inherit from <code>QuizException : public std::exception</code> with <code>const char* what() noexcept override</code>.</li>
+                    </ul>
+                </div>
+
+                <!-- Concept 5 -->
+                <div class="card concept-card">
+                    <div class="concept-header">
+                        <span class="concept-num">05</span>
+                        <h4>Generic Templates & STL Algorithms</h4>
+                    </div>
+                    <p class="concept-desc">
+                        Type-safe generic programming coupled with modern STL containers and algorithms.
+                    </p>
+                    <div class="code-snippet-box">
+                        <code>template &lt;typename T&gt; T calculatePercentage(T obtained, T total);</code>
+                        <code>template &lt;typename T&gt; class Repository { ... };</code>
+                        <code>std::sort(results.begin(), results.end(), comparator);</code>
+                        <code>std::shuffle(questions.begin(), questions.end(), engine);</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- 6. ADMIN PANEL SCREEN -->
+        <!-- ================================================================ -->
+        <section id="screen-admin" class="screen">
+            <div class="screen-header">
+                <div>
+                    <h1 class="page-title">Question Bank Administration</h1>
+                    <p class="subtitle">Directly appends validated records to <code>data/questions.txt</code></p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btnFillSampleQ">
+                    ✨ Fill Sample C++ Question
+                </button>
+            </div>
+
+            <div class="admin-grid-layout">
+                <!-- Left: Question Creator Form -->
+                <div class="card admin-form-card">
+                    <form id="adminForm" autocomplete="off">
+                        <div class="input-group">
+                            <label for="adminQType">Question Type</label>
+                            <select id="adminQType">
+                                <option value="MCQ">Multiple Choice Question (MCQ)</option>
+                                <option value="TF">True / False Question (TF)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="adminQText">Question Prompt</label>
+                            <textarea id="adminQText" rows="3" placeholder="Enter clean question text..." required></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="adminQMarks">Marks Allocated</label>
+                            <input type="number" id="adminQMarks" value="5" min="1" max="50" required />
+                        </div>
+
+                        <!-- MCQ Options -->
+                        <div id="mcqOptionsGroup" class="mcq-options-block">
+                            <label class="section-label">Multiple Choice Options (4 Required)</label>
+                            <div class="opt-input-grid">
+                                <div class="opt-field">
+                                    <span class="opt-tag">A</span>
+                                    <input type="text" id="adminOptA" placeholder="Option A text" />
+                                </div>
+                                <div class="opt-field">
+                                    <span class="opt-tag">B</span>
+                                    <input type="text" id="adminOptB" placeholder="Option B text" />
+                                </div>
+                                <div class="opt-field">
+                                    <span class="opt-tag">C</span>
+                                    <input type="text" id="adminOptC" placeholder="Option C text" />
+                                </div>
+                                <div class="opt-field">
+                                    <span class="opt-tag">D</span>
+                                    <input type="text" id="adminOptD" placeholder="Option D text" />
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="margin-top: 14px;">
+                                <label for="adminCorrectOpt">Select Correct Option</label>
+                                <select id="adminCorrectOpt">
+                                    <option value="A">Option A</option>
+                                    <option value="B">Option B</option>
+                                    <option value="C">Option C</option>
+                                    <option value="D">Option D</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- True/False Options -->
+                        <div id="tfOptionsGroup" class="hidden">
+                            <div class="input-group">
+                                <label for="adminCorrectTF">Select Correct Answer</label>
+                                <select id="adminCorrectTF">
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block glow-button" id="btnAdminSubmit">
+                            ➕ Append Question to Bank
+                        </button>
+                    </form>
+
+                    <div class="admin-message hidden" id="adminMessage"></div>
+                </div>
+
+                <!-- Right: Real-time Live Question Preview -->
+                <div class="admin-preview-area">
+                    <div class="card preview-card">
+                        <div class="preview-badge">LIVE STUDENT PREVIEW</div>
+                        <h4 class="preview-type" id="previewType">MCQ Question (5 Marks)</h4>
+                        <p class="preview-text" id="previewText">Your question prompt will preview here in real-time as you type...</p>
+                        <div class="preview-options" id="previewOptions">
+                            <div class="prev-opt">A) Option A</div>
+                            <div class="prev-opt">B) Option B</div>
+                            <div class="prev-opt">C) Option C</div>
+                            <div class="prev-opt">D) Option D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== CONFIRMATION SUBMIT MODAL ===== -->
+    <div class="modal-backdrop hidden" id="submitModal">
+        <div class="modal-card">
+            <div class="modal-icon">⚠️</div>
+            <h2>Ready to Submit Exam?</h2>
+            <p id="modalSummaryText">You have answered 0 of 10 questions. Are you sure you want to finish?</p>
+            <div class="modal-stats">
+                <div class="mstat"><span id="mstatAnswered">0</span> Answered</div>
+                <div class="mstat"><span id="mstatUnanswered">10</span> Unanswered</div>
+                <div class="mstat"><span id="mstatFlagged">0</span> Flagged</div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="btnCancelModal">Review More</button>
+                <button class="btn btn-success glow-button" id="btnConfirmSubmit">Confirm Submission</button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- ===== 5. ADMIN PANEL SCREEN ===== -->
-    <section id="screen-admin" class="screen">
-        <div class="card">
-            <h2>⚙️ Admin Panel — Add New Question</h2>
-            <p class="subtitle">Questions are saved directly to data/questions.txt</p>
-            <form id="adminForm" autocomplete="off">
-                <div class="input-group">
-                    <label for="adminQType">Question Type</label>
-                    <select id="adminQType">
-                        <option value="MCQ">Multiple Choice (MCQ)</option>
-                        <option value="TF">True / False</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="adminQText">Question Text</label>
-                    <textarea id="adminQText" rows="3" placeholder="Enter the question..." required></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="adminQMarks">Marks</label>
-                    <input type="number" id="adminQMarks" value="5" min="1" max="20" />
-                </div>
-
-                <!-- MCQ-specific Options -->
-                <div id="mcqOptionsGroup">
-                    <div class="input-group">
-                        <label>Option A</label>
-                        <input type="text" id="adminOptA" placeholder="Option A" />
-                    </div>
-                    <div class="input-group">
-                        <label>Option B</label>
-                        <input type="text" id="adminOptB" placeholder="Option B" />
-                    </div>
-                    <div class="input-group">
-                        <label>Option C</label>
-                        <input type="text" id="adminOptC" placeholder="Option C" />
-                    </div>
-                    <div class="input-group">
-                        <label>Option D</label>
-                        <input type="text" id="adminOptD" placeholder="Option D" />
-                    </div>
-                    <div class="input-group">
-                        <label for="adminCorrectOpt">Correct Option</label>
-                        <select id="adminCorrectOpt">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- TF-specific Options -->
-                <div id="tfOptionsGroup" class="hidden">
-                    <div class="input-group">
-                        <label for="adminCorrectTF">Correct Answer</label>
-                        <select id="adminCorrectTF">
-                            <option value="True">True</option>
-                            <option value="False">False</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">➕ Add Question</button>
-            </form>
-            <div class="admin-message hidden" id="adminMessage"></div>
-        </div>
-    </section>
-
-    <!-- ===== TOAST NOTIFICATION ===== -->
-    <div class="toast hidden" id="toast"></div>
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <script src="app.js"></script>
 </body>
 </html>
-
